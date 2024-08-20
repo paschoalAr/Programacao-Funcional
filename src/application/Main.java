@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import entities.Employee;
@@ -39,6 +38,11 @@ public class Main {
 
         System.out.println(Arrays.toString(emails.toArray()));
 
+        Double sum = employees.stream()
+            .filter(e -> e.getName().charAt(0) == 'M')
+            .map(e -> e.getSalary())
+            .reduce(0.0, (x,y) -> x + y);
 
+        System.out.println("A soma dos salários dos funcionários cujo nome começa com a letra 'M' = " + sum);
     }
 }
