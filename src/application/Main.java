@@ -3,8 +3,11 @@ package application;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import entities.Employee;
 
@@ -24,6 +27,18 @@ public class Main {
             employees.add(new Employee(nameEmployee, emailEmployee, salaryEmployee));
         }
 
-        employees.forEach(System.out:: println);
+        System.out.print("Insira um sálario: ");
+        Scanner in = new Scanner(System.in);
+        Double salary = in.nextDouble();
+
+        List<String> emails = employees.stream()
+            .filter(e -> e.getSalary() > salary)
+            .map(e -> e.getEmail())
+            .sorted((e1, e2) -> e1.toUpperCase().compareTo(e2.toUpperCase()))
+            .collect(Collectors.toList());
+
+        System.out.println(Arrays.toString(emails.toArray()));
+
+
     }
 }
